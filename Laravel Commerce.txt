@@ -1,0 +1,92 @@
+** users
+- id
+- name
+- email
+- password
+- mobile
+- city
+- country
+- zipcode
+
+** categories
+- id
+- name
+- slug
+- parent_id
+
+** products
+- id
+- name
+- slug
+- content
+- image
+- price
+- quantity
+- discount_id
+- category_id
+
+** features
+- id
+- name
+- value
+- type
+- product_id
+
+** ratings
+- id
+- rate
+- comment
+- active
+- product_id
+
+** discounts
+- id
+- percentage
+- expire_date
+- code
+
+** blogs
+- id
+- title
+- slug
+- content
+- image
+- category_id
+
+** comments
+- id
+- user_id
+- blog_id
+- comment
+
+** shippments
+- id
+- name
+- image
+
+** testimonials
+- id
+- content
+- user
+- position
+
+** carts
+- id
+- user_id
+- product_id
+- price
+- quantity
+- order_id
+
+** orders
+- id
+- user_id
+- total
+
+** payments
+- id
+- user_id
+- total
+- order_id
+- payment_by
+- tranaction_id
