@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('image');
             $table->double('price');
             $table->integer('quantity');
-            $table->foreignId('discount_id');
+            $table->foreignId('discount');
             $table->foreignId('category_id');
             $table->timestamps();
         });

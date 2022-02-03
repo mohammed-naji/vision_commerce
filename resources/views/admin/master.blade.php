@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="{{ asset('adminassets/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminassets/dist/css/adminlte.min.css') }}">
+  <style>
+      .table th,
+      .table td {
+          vertical-align: middle
+      }
+
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -178,5 +185,11 @@
 <script src="{{ asset('adminassets/dist/js/adminlte.min.js') }}"></script>
 
 @yield('scripts')
+
+<script>
+    $(".alert").fadeTo(2000, 500).slideUp(500, function() {
+        $(".alert").slideUp(500);
+    });
+</script>
 </body>
 </html>

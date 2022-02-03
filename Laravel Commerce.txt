@@ -22,7 +22,7 @@
 - image
 - price
 - quantity
-- discount_id
+- discount
 - category_id
 
 ** features
