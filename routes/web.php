@@ -20,6 +20,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 Route::get('/', [MainController::class, 'index'])->name('site.home');
 Route::get('/shop', [MainController::class, 'shop'])->name('site.shop');
 Route::get('/blog', [MainController::class, 'blog'])->name('site.blog');
+Route::get('/blog/{slug}', [MainController::class, 'blog_single'])->name('site.blog_single');
+
+Route::post('/add-comment', [MainController::class, 'add_comment'])->name('site.add_comment');
+
 Route::get('/contact', [MainController::class, 'contact'])->name('site.contact');
 Route::post('/contact', [MainController::class, 'contactus'])->name('site.contactus');
 
