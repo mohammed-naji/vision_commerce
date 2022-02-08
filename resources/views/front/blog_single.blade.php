@@ -97,16 +97,9 @@
                     </div>
 
                     <div class="comments">
-                        @foreach ($blog->comments as $comment)
-                        <div class="media">
-                            <img src="https://ui-avatars.com/api/?name={{ $comment->user->name }}" class="mr-3" alt="...">
-                            <div class="media-body">
-                                <h5 class="mt-0">{{ $comment->user->name }}</h5>
-                                <small>{{ $comment->created_at->diffForHumans() }}</small>
-                                <p>{{ $comment->comment }}</p>
-                            </div>
+                        <div class="comment-list">
+                            @include('front.parts.comment_list', ['comments' => $blog->comments()->orderBy('id', 'desc')->get()])
                         </div>
-                        @endforeach
 
                         @if (Auth::check())
                             <form id="comment_form" action="" class="mt-5">
@@ -171,6 +164,10 @@
                 _token: '{{ csrf_token() }}',
                 comment: c,
                 blog_id: b_id
+            },
+            success: function(res) {
+                $('#comment_form textarea').val('')
+                $('.comment-list').html(res);
             }
         })
 

@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class)->withDefault(['name' => '-']);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

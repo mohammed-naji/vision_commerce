@@ -1650,6 +1650,11 @@ ol {
 	color: #ffffff;
 }
 
+.page-item.active .page-link {
+    background: #7fad39;
+    border-color: #7fad39;
+}
+
 .product__pagination a:last-child,
 .blog__pagination a:last-child {
 	margin-right: 0;

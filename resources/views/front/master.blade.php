@@ -55,7 +55,7 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                <a href="#"><i class="fa fa-user"></i> Loginff</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -120,8 +120,16 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                            <div  class="d-inline-flex header__top__right__auth">
+                                @if (Auth::check())
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('log-form').submit()"><i class="fa fa-user"></i> Logout</a>
+
+                                <form id="log-form" class="d-none" action="{{ route('logout') }}" method="POST">@csrf</form>
+                                @else
+                                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
+                                <a class="mx-3" href="{{ route('register') }}"><i class="fa fa-user"></i> Register</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
