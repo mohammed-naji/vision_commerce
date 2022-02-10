@@ -18,7 +18,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
 
 Route::get('/', [MainController::class, 'index'])->name('site.home');
-Route::get('/shop', [MainController::class, 'shop'])->name('site.shop');
+Route::get('/shop', [MainController::class, 'shop'])->name('site.shop')->middleware('verified');
 Route::get('/shop/{slug}', [MainController::class, 'shop_details'])->name('site.shop_details');
 
 Route::get('/category/{slug}', [MainController::class, 'category_single'])->name('site.category_single');
@@ -32,6 +32,6 @@ Route::delete('/delete-comment/{id}', [MainController::class, 'delete_comment'])
 Route::get('/contact', [MainController::class, 'contact'])->name('site.contact');
 Route::post('/contact', [MainController::class, 'contactus'])->name('site.contactus');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

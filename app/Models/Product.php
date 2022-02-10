@@ -10,4 +10,14 @@ class Product extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class)->withDefault();
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
 }

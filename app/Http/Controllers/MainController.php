@@ -15,7 +15,15 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('front.index');
+        $best_discount = Product::whereNotNull('discount')->orderBy('discount', 'desc')->first();
+
+        $categories = Category::all();
+
+        $latest_categories = Category::latest('id')->take(5)->get();
+        // dd($latest_categories);
+
+        // dd($best_discount);
+        return view('front.index', compact('best_discount', 'categories', 'latest_categories'));
     }
 
     public function shop()
@@ -27,7 +35,10 @@ class MainController extends Controller
     public function shop_details($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        return view('front.shop_details', compact('product'));
+
+        $related = Product::where('category_id', $product->category_id)->where('id', '<>', $product->id)->take(4)->get();
+
+        return view('front.shop_details', compact('product', 'related'));
     }
 
     public function category_single($slug)
