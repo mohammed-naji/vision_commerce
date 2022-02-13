@@ -30,12 +30,16 @@ use App\Models\Category;
                             <button type="submit" class="site-btn">SEARCH</button>
                         </form>
                     </div>
-                    <div class="hero__search__phone">
+                    <div class="hero__search__phone w-25">
+                        {{-- <a href="https://wa.me/0592418889"> --}}
+                        <a href="tel:0592418889">
                         <div class="hero__search__phone__icon">
                             <i class="fa fa-phone"></i>
                         </div>
+                        </a>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
+                            <h5>+65 11.188.888
+                            </h5>
                             <span>support 24/7 time</span>
                         </div>
                     </div>

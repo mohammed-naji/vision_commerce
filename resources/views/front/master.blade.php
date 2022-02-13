@@ -163,11 +163,24 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
+                        @php
+                            $cart_count = 0;
+                            $total = 0;
+                            if(Auth::check()) {
+                                $carts = App\Models\Cart::where('user_id', Auth::id())->get();
+                                $cart_count = $carts->count();
+
+                                foreach ($carts as $item) {
+                                    $total += $item->quantity * $item->price;
+                                }
+
+                            }
+                        @endphp
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{ $cart_count }}</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span>${{ $total }}</span></div>
                     </div>
                 </div>
             </div>

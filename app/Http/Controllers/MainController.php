@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactUsMail;
 use App\Models\Blog;
-use App\Models\Category;
+use App\Models\Cart;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Category;
+use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -113,4 +114,51 @@ class MainController extends Controller
 
         return redirect()->back();
     }
+
+    public function purchase_product(Request $request, $id)
+    {
+        // dd($request->all());
+
+        $product = Product::find($id);
+
+        $cart = Cart::where('user_id', Auth::id())->where('product_id', $id)->first();
+
+        // dd($cart);
+
+        if($cart) {
+            $cart->update(['quantity' => $cart->quantity + $request->quantity]);
+        }else {
+            Cart::create([
+                'price' => $product->price,
+                'quantity' => $request->quantity,
+                'user_id' => Auth::id(),
+                'product_id' => $id
+            ]);
+        }
+
+
+
+        return redirect()->back();
+
+        // dd($product);
+    }
+
+
+    public function cart()
+    {
+        $carts = Cart::where('user_id', Auth::id())->get();
+        return view('front.cart', compact('carts'));
+    }
+
+    public function delete_product($id)
+    {
+        Cart::destroy($id);
+        return redirect()->back();
+    }
+
+    public function update_cart()
+    {
+        return request()->all();
+    }
+
 }

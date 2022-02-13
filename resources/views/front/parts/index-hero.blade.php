@@ -37,11 +37,13 @@ use App\Models\Category;
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
+                            <h5><a href="https://wa.me/0592418889">+65 11.188.888</a>
+                                </h5>
                             <span>support 24/7 time</span>
                         </div>
                     </div>
                 </div>
+                @if ($best_discount)
                 <div class="hero__item set-bg" data-setbg="{{ asset($best_discount->image) }}">
                     <div class="hero__text">
                         <h2 class="display-4">{{ $best_discount->discount }}%</h2>
@@ -50,6 +52,8 @@ use App\Models\Category;
                         <a href="{{ route('site.shop_details', $best_discount->slug) }}" class="primary-btn">SHOP NOW</a>
                     </div>
                 </div>
+                @endif
+
             </div>
         </div>
     </div>

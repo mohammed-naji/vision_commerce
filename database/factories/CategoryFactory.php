@@ -17,7 +17,8 @@ class CategoryFactory extends Factory
         $title = $this->faker->words(2, true);
         return [
             'name' => $title,
-            'slug' => Str::slug($title)
+            'slug' => Str::slug($title),
+            'image' => $this->faker->imageUrl()
         ];
     }
 }
