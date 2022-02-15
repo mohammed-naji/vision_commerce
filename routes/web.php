@@ -39,6 +39,10 @@ Route::post('/contact', [MainController::class, 'contactus'])->name('site.contac
 Route::get('cart', [MainController::class, 'cart'])->name('site.cart');
 Route::post('update_cart', [MainController::class, 'update_cart'])->name('site.update_cart');
 
+Route::get('checkout', [MainController::class, 'checkout'])->name('site.checkout');
+
+Route::get('thanks', [MainController::class, 'thanks'])->name('site.thanks');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
