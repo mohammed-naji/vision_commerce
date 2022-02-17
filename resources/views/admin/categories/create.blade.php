@@ -20,8 +20,13 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label>Name</label>
-                            <input name="name" class="form-control" placeholder="Name" />
+                            <label>Name English</label>
+                            <input name="name_en" class="form-control" placeholder="Name" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Name Arabic</label>
+                            <input name="name_ar" class="form-control" placeholder="Name" />
                         </div>
 
                         <div class="mb-3">

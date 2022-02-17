@@ -18,6 +18,29 @@
       }
 
   </style>
+  @if (app()->currentLocale() == 'ar')
+  <style>
+      body {
+          direction: rtl;
+          text-align: right
+      }
+      @media (min-width: 768px) {
+        body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+            margin-right: 250px;
+            margin-left: 0;
+        }
+      }
+
+      ul {
+          padding: 0
+      }
+
+      .nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right {
+        right: unset;
+        left: 1rem;
+      }
+  </style>
+  @endif
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -124,6 +147,17 @@
           <i class="fas fa-user"></i>
         </a>
       </li>
+
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            @if ($localeCode != app()->currentLocale())
+            <li class="nav-item">
+                <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+            </li>
+            @endif
+        @endforeach
+
     </ul>
   </nav>
   <!-- /.navbar -->

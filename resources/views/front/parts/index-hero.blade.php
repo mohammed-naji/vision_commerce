@@ -14,7 +14,7 @@ use App\Models\Category;
                     </div>
                     <ul>
                         @foreach (Category::take(10)->latest('id')->get() as $item)
-                        <li><a href="{{ route('site.category_single', $item->slug) }}">{{ $item->name }} ({{ $item->products->count() }})</a></li>
+                        <li><a href="{{ route('site.category_single', $item->slug) }}">{{ $item->{'name_'.app()->currentLocale()} }} ({{ $item->products->count() }})</a></li>
                         @endforeach
 
                     </ul>

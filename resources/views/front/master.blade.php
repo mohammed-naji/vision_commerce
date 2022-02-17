@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="{{ app()->currentLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -21,6 +21,27 @@
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css">
+
+    {{-- @dump( app()->currentLocale() ) --}}
+
+    @if (app()->currentLocale() == 'ar')
+    <style>
+        body {
+            direction: rtl;
+            text-align: right
+        }
+        .hero__search__phone {
+            float: left;
+        }
+        .hero__search__form {
+            float: right;
+        }
+        .header__menu ul li a {
+            letter-spacing: 0
+        }
+    </style>
+    @endif
+
 
     @yield('styles')
 </head>
@@ -49,10 +70,11 @@
                 <img src="{{ asset('assets/img/language.png') }}" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
-                <ul>
+                {{-- <ul>
                     <li><a href="#">Spanis</a></li>
                     <li><a href="#">English</a></li>
-                </ul>
+                </ul> --}}
+
             </div>
             <div class="header__top__right__auth">
                 <a href="#"><i class="fa fa-user"></i> Loginff</a>
@@ -112,12 +134,22 @@
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <img src="{{ asset('assets/img/language.png') }}" alt="">
-                                <div>English</div>
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    @if ($localeCode == app()->currentLocale())
+                                        <img width="20" src="{{ asset('assets/img/'.$localeCode.'.png') }}" alt="">
+                                        <div>{{ $properties['native'] }}</div>
+                                    @endif
+
+                                @endforeach
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <li>
+                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                {{ $properties['native'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                             <div  class="d-inline-flex header__top__right__auth">
@@ -146,8 +178,8 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li {{ request()->routeIs('site.home') ? 'class=active' : '' }}><a href="{{ route('site.home') }}">Home</a></li>
-                            <li {{ request()->routeIs('site.shop') ? 'class=active' : '' }}><a href="{{ route('site.shop') }}">Shop</a></li>
+                            <li {{ request()->routeIs('site.home') ? 'class=active' : '' }}><a href="{{ route('site.home') }}">{{ __('site.home') }}</a></li>
+                            <li {{ request()->routeIs('site.shop') ? 'class=active' : '' }}><a href="{{ route('site.shop') }}">{{ __('site.shop') }}</a></li>
                             {{-- <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
@@ -156,8 +188,8 @@
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li> --}}
-                            <li {{ request()->routeIs('site.blog') ? 'class=active' : '' }}><a href="{{ route('site.blog') }}">Blog</a></li>
-                            <li {{ request()->routeIs('site.contact') ? 'class=active' : '' }}><a href="{{ route('site.contact') }}">Contact</a></li>
+                            <li {{ request()->routeIs('site.blog') ? 'class=active' : '' }}><a href="{{ route('site.blog') }}">{{ __('site.blog') }}</a></li>
+                            <li {{ request()->routeIs('site.contact') ? 'class=active' : '' }}><a href="{{ route('site.contact') }}">{{ __('site.contact') }}</a></li>
                         </ul>
                     </nav>
                 </div>

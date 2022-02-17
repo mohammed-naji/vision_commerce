@@ -74,6 +74,7 @@
         animateIn: 'fadeIn',
         smartSpeed: 1200,
         autoHeight: false,
+        rtl: $('html').attr('lang') == 'ar' ? true : false,
         autoplay: true,
         responsive: {
 

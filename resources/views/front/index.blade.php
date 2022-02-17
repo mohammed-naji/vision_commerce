@@ -14,7 +14,7 @@
                     @foreach ($categories as $item)
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{{ asset($item->image) }}">
-                            <h5><a href="{{ route('site.category_single', $item->slug) }}">{{ $item->name }}</a></h5>
+                            <h5><a href="{{ route('site.category_single', $item->slug) }}">{{ $item->{'name_'.app()->currentLocale()} }}</a></h5>
                         </div>
                     </div>
                     @endforeach
