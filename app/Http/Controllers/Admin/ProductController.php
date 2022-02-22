@@ -8,6 +8,7 @@ use App\Models\Discount;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Feature;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -58,6 +59,8 @@ class ProductController extends Controller
         //     'category_id' => 'required|exists:categories,id',
         // ]);
 
+        // dd($request->all());
+
 
         // upload image
         $imagename = 'product_'.time().'_'.$request->file('image')->getClientOriginalName();
@@ -75,7 +78,7 @@ class ProductController extends Controller
         $album = implode(',', $album);
 
 
-        Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'image' => $imagename,
@@ -86,6 +89,18 @@ class ProductController extends Controller
             'discount' => $request->discount,
             'category_id' => $request->category_id,
         ]);
+
+        $i = 0;
+        foreach($request->fname as $item) {
+            Feature::create([
+                'name' => $request->fname[$i],
+                'value' => $request->fvalue[$i],
+                'type' => $request->ftype[$i],
+                'product_id' => $product->id
+            ]);
+            $i++;
+        }
+
 
         return redirect()->route('admin.products.index')->with('msg', 'Product added successfully')->with('type', 'success');
     }
@@ -156,6 +171,18 @@ class ProductController extends Controller
             'discount' => $request->discount,
             'category_id' => $request->category_id,
         ]);
+
+        Feature::where('product_id', $product->id)->delete();
+        $i = 0;
+        foreach($request->fname as $item) {
+            Feature::create([
+                'name' => $request->fname[$i],
+                'value' => $request->fvalue[$i],
+                'type' => $request->ftype[$i],
+                'product_id' => $product->id
+            ]);
+            $i++;
+        }
 
         return redirect()->route('admin.products.index')->with('msg', 'Product added successfully')->with('type', 'success');
     }

@@ -47,6 +47,13 @@
 </head>
 
 <body>
+
+    @if (session('msg'))
+        <div class="alert alert-{{ session('type') }}">
+            {{ session('msg') }}
+        </div>
+    @endif
+
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>

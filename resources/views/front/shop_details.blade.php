@@ -16,9 +16,12 @@
                     <div class="breadcrumb__text">
                         <h2>{{ $product->name }}</h2>
                         <div class="breadcrumb__option">
+{{-- @dump($product->category) --}}
                             <a href="{{ route('site.home') }}">Home</a>
-                            <a
-                                href="{{ route('site.category_single', $product->category->slug) }}">{{ $product->category->name }}</a>
+
+                            @if ($product->category->slug)
+                            <a href="{{ route('site.category_single', $product->category->slug) }}">{{ $product->category->name }}</a>
+                            @endif
                             <span>{{ $product->name }}</span>
                         </div>
                     </div>
@@ -88,7 +91,9 @@
                             <div class="product__details__quantity">
                                 <div class="quantity">
                                     <div class="pro-qty">
+                                        <span class="dec qtybtn">-</span>
                                         <input type="text" name="quantity" value="1">
+                                        <span class="inc qtybtn">+</span>
                                     </div>
                                 </div>
                             </div>

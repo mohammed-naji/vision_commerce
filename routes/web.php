@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\MainController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
@@ -16,6 +18,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('categories', CategoryController::class);
 
     Route::resource('products', ProductController::class);
+
+    Route::resource('blogs', BlogController::class);
+
+    Route::resource('testimonials', TestimonialController::class);
 
 });
 
@@ -51,3 +57,6 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 });
+
+
+Route::view('invoice', 'front.invoice');

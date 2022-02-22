@@ -20,4 +20,9 @@ class Product extends Model
     {
         return $this->hasMany(Rate::class);
     }
+
+    public function features()
+    {
+        return $this->hasMany(Feature::class);
+    }
 }

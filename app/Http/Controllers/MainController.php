@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Comment;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Category;
+use App\Mail\InvoiceMail;
 use App\Mail\ContactUsMail;
-use App\Models\Order;
-use App\Models\Payment;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
@@ -140,7 +143,7 @@ class MainController extends Controller
 
 
 
-        return redirect()->back();
+        return redirect()->route('site.checkout');
 
         // dd($product);
     }
@@ -257,10 +260,23 @@ class MainController extends Controller
 
             Cart::where('user_id', Auth::id())->whereNull('order_id')->update(['order_id' => $order->id]);
 
-            return 'Done';
+            // send invoice to the user
+
+            // return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+
+            $inv_name = 'invoice_'.rand().rand().'.pdf';
+
+            $pdf = PDF::loadView('front.invoice', ['carts' => $carts, 'order' => $order])->save(public_path('invoices/') . $inv_name);
+
+
+            // Storage::put('public/invoices/'.$inv_name, $pdf->output());
+
+            Mail::to(Auth::user())->send(new InvoiceMail($order, $inv_name));
+
+            return redirect()->route('site.home')->with('msg', 'Payment Done Successfully')->with('type', 'success');
 
         }else {
-            return 'Error';
+            return redirect()->route('site.home')->with('msg', 'Payment Faild')->with('type', 'danger');
         }
     }
 

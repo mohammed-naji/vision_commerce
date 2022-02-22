@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('site.home') }}" class="brand-link">
       <img src="{{ asset('adminassets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Vision Commerce</span>
     </a>
@@ -71,6 +71,54 @@
                 <a href="{{ route('admin.products.create') }}" class="nav-link {{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New Product</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{request()->routeIs('admin.blogs.index') || request()->routeIs('admin.blogs.create') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-comments"></i>
+              <p>
+                Blogs
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.blogs.index') }}" class="nav-link {{ request()->routeIs('admin.blogs.index') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Blogs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.blogs.create') }}" class="nav-link {{ request()->routeIs('admin.blogs.create') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Blog</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{request()->routeIs('admin.testimonials.index') || request()->routeIs('admin.testimonials.create') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-comment-dots"></i>
+              <p>
+                Testimonials
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.testimonials.index') }}" class="nav-link {{ request()->routeIs('admin.testimonials.index') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Testimonials</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.testimonials.create') }}" class="nav-link {{ request()->routeIs('admin.testimonials.create') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Testimonial</p>
                 </a>
               </li>
             </ul>
