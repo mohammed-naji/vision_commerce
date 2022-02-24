@@ -15,6 +15,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function() {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+
+    Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+
+    Route::get('/orders/{id}', [AdminController::class, 'orders_details'])->name('orders.details');
+
     Route::resource('categories', CategoryController::class);
 
     Route::resource('products', ProductController::class);
@@ -60,3 +66,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::view('invoice', 'front.invoice');
+
+
+Route::get('signin', function() {
+    return view('auth.signin');
+});
+
+// Route::get('logintype', function() {
+//     return view('auth.signin');
+// });

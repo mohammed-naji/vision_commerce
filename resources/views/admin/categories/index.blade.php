@@ -43,8 +43,8 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <th>{{ $category->id }}</th>
-                                    <th>{{ $category->name }}</th>
-                                    <th>{{ $category->parent->name }}</th>
+                                    <th>{{ $category->{'name_'.app()->currentLocale()} }}</th>
+                                    <th>{{ $category->parent->{'name_'.app()->currentLocale()} }}</th>
                                     <th>
                                         <a href="{{ route('admin.categories.edit', $category->id) }}"
                                             class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>

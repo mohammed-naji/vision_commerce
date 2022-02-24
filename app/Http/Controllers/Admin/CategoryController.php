@@ -47,13 +47,21 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:3|max:30',
+            'name_en' => 'required|min:3|max:30',
+            'name_ar' => 'required|min:3|max:30',
+            'image' => 'required|image|mimes:png,jpg',
             'parent_id' => 'nullable|exists:categories,id'
         ]);
 
+        // upload image
+        $imgname = 'category_'.rand().time(). $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('images'), $imgname);
+
         Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
+            'slug' => Str::slug($request->name_en),
+            'image' => $imgname,
             'parent_id' => $request->parent_id
         ]);
 
@@ -94,15 +102,26 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:3|max:30',
+            'name_en' => 'required|min:3|max:30',
+            'name_ar' => 'required|min:3|max:30',
+            'image' => 'nullable|image|mimes:png,jpg',
             'parent_id' => 'nullable|exists:categories,id'
         ]);
 
         $category = Category::findOrFail($id);
 
+        $imgname = $category->image;
+
+        if($request->hasFile('image')) {
+            $imgname = 'category_'.rand().time(). $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $imgname);
+        }
+
         $category->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
+            'image' => $imgname,
+            'slug' => Str::slug($request->name_en),
             'parent_id' => $request->parent_id
         ]);
 

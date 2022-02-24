@@ -16,12 +16,23 @@
                 <div class="card-body">
                     @include('admin.errors')
 
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="mb-3">
-                            <label>Name</label>
-                            <input name="name" class="form-control" placeholder="Name" value="{{ $category->name }}" />
+                            <label>Name English</label>
+                            <input name="name_en" class="form-control" placeholder="Name English" value="{{ $category->name_en }}" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Name Arabic</label>
+                            <input name="name_ar" class="form-control" placeholder="Name Arabic" value="{{ $category->name_ar }}" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Image</label>
+                            <input name="image" type="file" class="form-control" placeholder="Name" />
+                            <img width="120" src="{{ asset('images/'.$category->image) }}" alt="">
                         </div>
 
                         <div class="mb-3">
@@ -31,7 +42,7 @@
                                 @foreach ($categories as $item)
                                 <option
 {{ $category->parent_id == $item->id ? 'selected' : '' }}
-                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                value="{{ $item->id }}">{{ $item->{'name_'.app()->currentLocale()} }}</option>
                                 @endforeach
 
                             </select>
