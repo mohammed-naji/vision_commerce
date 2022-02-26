@@ -6,6 +6,30 @@
 
 @include('front.parts.index-hero')
 
+    <section class="container">
+
+        <table>
+            <tr>
+                <th>Currency</th>
+                <th>Exchange</th>
+            </tr>
+            <tr>
+                <td>ILS</td>
+                <td>{{ $currency['data']['ILS'] }}</td>
+            </tr>
+            <tr>
+                <td>JOD</td>
+                <td>{{ $currency['data']['JOD'] }}</td>
+            </tr>
+            <tr>
+                <td>EUR</td>
+                <td>{{ $currency['data']['EUR'] }}</td>
+            </tr>
+        </table>
+
+    </section>
+
+
     <!-- Categories Section Begin -->
     <section class="categories">
         <div class="container">
@@ -49,7 +73,7 @@
                     @foreach ($category->products as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix cat-{{ $category->id }}">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="{{ asset($item->image) }}">
+                            <div class="featured__item__pic set-bg" data-setbg="{{ asset('uploads/images/'.$item->image) }}">
 
                             </div>
                             <div class="featured__item__text">

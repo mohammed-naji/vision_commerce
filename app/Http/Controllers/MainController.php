@@ -14,6 +14,7 @@ use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,8 +29,15 @@ class MainController extends Controller
         $latest_categories = Category::latest('id')->take(5)->get();
         // dd($latest_categories);
 
+        $currency = Http::get('https://freecurrencyapi.net/api/v2/latest',
+        [
+            'apikey' => 'e896ac70-9723-11ec-974e-4fcc657cc743'
+        ]);
+
+        $currency = json_decode( $currency->body(), true);
+
         // dd($best_discount);
-        return view('front.index', compact('best_discount', 'categories', 'latest_categories'));
+        return view('front.index', compact('best_discount', 'categories', 'latest_categories', 'currency'));
     }
 
     public function shop()

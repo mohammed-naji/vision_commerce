@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SMSController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
@@ -75,3 +76,6 @@ Route::get('signin', function() {
 // Route::get('logintype', function() {
 //     return view('auth.signin');
 // });
+
+
+Route::get('sms', [SMSController::class, 'send']);
