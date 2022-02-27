@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Mail\InvoiceMail;
 use App\Mail\ContactUsMail;
+use App\Models\User;
+use App\Notifications\NewOrder;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
@@ -277,9 +279,12 @@ class MainController extends Controller
             $pdf = PDF::loadView('front.invoice', ['carts' => $carts, 'order' => $order])->save(public_path('invoices/') . $inv_name);
 
 
-            // Storage::put('public/invoices/'.$inv_name, $pdf->output());
+            //Storage::put('public/invoices/'.$inv_name, $pdf->output());
 
             Mail::to(Auth::user())->send(new InvoiceMail($order, $inv_name));
+
+            $admin = User::find(1);
+            $admin->notify( new NewOrder($order->id) );
 
             return redirect()->route('site.home')->with('msg', 'Payment Done Successfully')->with('type', 'success');
 

@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -46,4 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class)->withDefault();
+    }
+
+    public function hasAbility($ability)
+    {
+        return $this->role->abilities()->where('code', $ability)->exists();
+    }
+
 }

@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        Category::truncate();
-        Product::truncate();
-        Blog::truncate();
-        Comment::truncate();
+        // Category::truncate();
+        // Product::truncate();
+        // Blog::truncate();
+        // Comment::truncate();
 
-        Category::factory(20)->create();
-        Product::factory(50)->create();
-        Blog::factory(20)->create();
-        Comment::factory(50)->create();
+        // Category::factory(20)->create();
+        // Product::factory(50)->create();
+        // Blog::factory(20)->create();
+        // Comment::factory(50)->create();
     }
 }

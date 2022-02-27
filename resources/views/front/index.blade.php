@@ -37,7 +37,7 @@
                 <div class="categories__slider owl-carousel">
                     @foreach ($categories as $item)
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{ asset($item->image) }}">
+                        <div class="categories__item" style="background: url('{{ asset('images/'.$item->image) }}');background-size: contain">
                             <h5><a href="{{ route('site.category_single', $item->slug) }}">{{ $item->{'name_'.app()->currentLocale()} }}</a></h5>
                         </div>
                     </div>

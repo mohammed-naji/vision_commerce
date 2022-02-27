@@ -159,6 +159,28 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.roles.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.roles.index') ? 'active' : '' }}
+            ">
+                        <i class="nav-icon fas fa-comment"></i>
+                        <p>
+                            Roles
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.admins') }}"
+                        class="nav-link {{ request()->routeIs('admin.admins') ? 'active' : '' }}
+            ">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Admins
+                        </p>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

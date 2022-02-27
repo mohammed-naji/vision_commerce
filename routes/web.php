@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\SMSController;
@@ -18,6 +19,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     Route::get('/users', [AdminController::class, 'users'])->name('users');
 
+    Route::get('/admins', [AdminController::class, 'admins'])->name('admins');
+
+    Route::put('/admins/{id}', [AdminController::class, 'admins_edit'])->name('admins_edit');
+
     Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
 
     Route::get('/orders/{id}', [AdminController::class, 'orders_details'])->name('orders.details');
@@ -29,6 +34,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::resource('blogs', BlogController::class);
 
     Route::resource('testimonials', TestimonialController::class);
+
+    Route::resource('roles', RoleController::class);
 
 });
 
